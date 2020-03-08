@@ -1,3 +1,3 @@
-window.onload = () => {
-	const app = Elm.Main.init()
-}
+require('./style.css');
+const {Elm} = require("./Main.elm");
+const app = Elm.Main.init({node: document.getElementById("main")});

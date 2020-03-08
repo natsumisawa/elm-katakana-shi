@@ -1,23 +1,26 @@
-port module Main exposing (Model, Msg(..), init, main, update, view)
+module Main exposing (main)
 
 import Browser
-import Html exposing (Attribute, Html, a, button, div, h1, img, input, span, text)
+import Html exposing (p, Attribute, Html, a, button, div, h1, img, input, span, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
-import Json.Encode as JE
 import Random
-import Task
-import Time
 
 
-port drawImage : JE.Value -> Cmd msg
+-- MAIN
 
 
-port resetImg : String -> Cmd msg
+main =
+    Browser.element
+        { init = init
+        , update = update
+        , view = view
+        , subscriptions = subscriptions
+        }
 
 
 
----- MODEL ----
+-- MODEL
 
 
 type alias Model =
@@ -26,13 +29,13 @@ type alias Model =
     }
 
 
-init : ( Model, Cmd Msg )
-init =
+init : () -> ( Model, Cmd Msg )
+init _ =
     ( Model True "ココニカタカナデルヨ", Cmd.none )
 
 
 
----- UPDATE ----
+-- UPDATE
 
 
 type Msg
@@ -70,12 +73,10 @@ generateRandomInt : Cmd Msg
 generateRandomInt =
     Random.generate GenerateK <| Random.int 0 465
 
+-- VIEW
 
 
----- VIEW ----
-
-
-view : Model -> Browser.Document Msg
+view : Model -> Html Msg
 view ({ katakana, showK } as model) =
     let
         fingerClass =
@@ -85,35 +86,24 @@ view ({ katakana, showK } as model) =
             else
                 ""
     in
-    { title = "katakana-shi"
-    , body =
+    div []
         [ div [ align "center" ]
             [ h1 []
                 [ text "カタカナアシ" ]
             ]
         , div [ style "display" "flex", align "center" ]
-            [ img [ src "assets/images/warota.PNG" ] []
-            , img [ id fingerClass, src "assets/images/finger.PNG", onClick Random ] []
-            , img [ src "assets/images/bubble1.PNG" ] []
+            [ img [ src "assets/warota.PNG" ] []
+            , img [ id fingerClass, src "assets/finger.PNG", onClick Random ] []
+            , img [ src "assets/bubble1.PNG" ] []
             , span [ style "font-size" "20px", style "padding" "30px" ] [ text katakana ]
-            , img [ src "assets/images/bubble2.PNG" ] []
+            , img [ src "assets/bubble2.PNG" ] []
             ]
         ]
-    }
 
 
-
----- PROGRAM ----
-
-
-main : Program () Model Msg
-main =
-    Browser.document
-        { view = view
-        , init = \_ -> init
-        , update = update
-        , subscriptions = \_ -> Sub.none
-        }
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    Sub.none
 
 
 katakanaList : List String
