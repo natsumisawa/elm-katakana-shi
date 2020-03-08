@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cp -r ./src/assets ./dist && parcel ./src/index.html --out-dir dist",
-    "build": "parcel build ./src/index.html --out-dir dist"
+    "build": "cp -r ./src/assets ./dist && parcel build ./src/index.html --out-dir dist"
   },
   "author": "",
   "license": "ISC",
