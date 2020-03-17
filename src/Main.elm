@@ -29,14 +29,14 @@ init _ =
 
 
 type Msg
-    = GenerateK String
+    = SetKatakana String
     | Random
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg ({ showK, katakana } as model) =
     case msg of
-        GenerateK k ->
+        SetKatakana k ->
             let
                 newShowK =
                     not showK
@@ -51,12 +51,12 @@ update msg ({ showK, katakana } as model) =
             ( { model | showK = newShowK, katakana = newKatakana }, Cmd.none )
 
         Random ->
-            ( model, generateRandomInt )
+            ( model, selectRandomKatakana )
 
 
-generateRandomInt : Cmd Msg
-generateRandomInt =
-    Random.generate GenerateK <| Random.uniform "" katakanaList
+selectRandomKatakana : Cmd Msg
+selectRandomKatakana =
+    Random.generate SetKatakana <| Random.uniform "ここ何？" katakanaList
 
 
 view : Model -> Html Msg
