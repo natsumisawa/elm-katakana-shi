@@ -1,7 +1,11 @@
 {
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
   "devDependencies": {
-    "cssnano": "^4.1.10",
     "elm-hot": "^1.1.4",
     "node-elm-compiler": "^5.0.4"
-  }
+  },
+  "dependencies": {}
 }

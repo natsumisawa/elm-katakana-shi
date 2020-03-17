@@ -1,4 +1,49 @@
-body {
-  color: white;
-  background-color: blue;
+div.header {
+  font-family: "YuGothic";
+  margin-bottom: 10px; 
+}
+
+div.body {
+  font-family: "YuGothic";
+}
+
+#buruburu {
+  display: inline-block;
+  animation: buruburu .1s  infinite;
+}
+
+@keyframes buruburu {
+    0% {transform: translate(0px, 0px) rotateZ(0deg)}
+    25% {transform: translate(2px, 2px) rotateZ(1deg)}
+    50% {transform: translate(0px, 2px) rotateZ(0deg)}
+    75% {transform: translate(2px, 0px) rotateZ(-1deg)}
+    100% {transform: translate(0px, 0px) rotateZ(0deg)}
+}
+
+.warota {
+  width: 100px;
+  height: 100px;
+
+  background-image: url(../src/assets/warota.PNG);
+}
+
+.finger {
+  width: 100px;
+  height: 100px;
+
+  background-image: url(../src/assets/finger.PNG);
+}
+
+.bubble1 {
+  width: 100px;
+  height: 100px;
+
+  background-image: url(../src/assets/bubble1.PNG);
+}
+
+.bubble2 {
+  width: 100px;
+  height: 100px;
+
+  background-image: url(../src/assets/bubble2.PNG);
 }
