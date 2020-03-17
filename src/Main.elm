@@ -1,5 +1,6 @@
 module Main exposing (main)
 
+import Animation exposing (..)
 import Browser
 import Html exposing (Attribute, Html, a, button, div, h1, img, input, p, span, text)
 import Html.Attributes exposing (..)
@@ -20,12 +21,20 @@ main =
 type alias Model =
     { showK : Bool
     , katakana : String
+    , style : Animation msg
     }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Model True "ココニカタカナデルヨォ〜", Cmd.none )
+    ( Model True
+        "ココニカタカナデルヨォ〜"
+        Animation.style
+        [ Animation.left (px 0.0)
+        , Animation.opacity 1.0
+        ]
+    , Cmd.none
+    )
 
 
 type Msg
@@ -56,7 +65,7 @@ update msg ({ showK, katakana } as model) =
 
 selectRandomKatakana : Cmd Msg
 selectRandomKatakana =
-    Random.generate SetKatakana <| Random.uniform "ここ何？" katakanaList
+    Random.generate SetKatakana <| Random.uniform "もういっかいおしてね" katakanaList
 
 
 view : Model -> Html Msg
@@ -88,4 +97,4 @@ view ({ katakana, showK } as model) =
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    Sub.none
+    Animation.subscription Animate [ model.style ]
